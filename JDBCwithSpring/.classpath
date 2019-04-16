@@ -4,5 +4,8 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="G:/db-derby-10.13.1.1-bin/db-derby-10.13.1.1-bin/lib/derby.jar"/>
 	<classpathentry kind="lib" path="G:/db-derby-10.13.1.1-bin/db-derby-10.13.1.1-bin/lib/derbyclient.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Spring"/>
+	<classpathentry kind="lib" path="G:/commons-dbcp2-2.6.0-bin.tar.gz"/>
+	<classpathentry kind="lib" path="G:/commons-pool2-2.6.2-bin.tar.gz"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
