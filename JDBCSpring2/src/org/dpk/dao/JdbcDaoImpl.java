@@ -1,10 +1,7 @@
 package org.dpk.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -13,6 +10,10 @@ import org.dpk.model.Circle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -20,6 +21,8 @@ public class JdbcDaoImpl {
 
 	private DataSource dataSource;
 	private JdbcTemplate jdbcTemplate;
+	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+	private SimpleJdbcTemplate simpleJdbcTemplate;
 
 	/*public Circle getCircle(int circleId) {
 		Circle circle = null;
@@ -50,6 +53,25 @@ public class JdbcDaoImpl {
 		}
 	}
 */
+	
+//	public void insertCircle(Circle circle)
+//	{
+//		String query="insert into circle (id, name) values (?, ?)";
+//		jdbcTemplate.update(query, new Object[] {circle.getCircleId(), circle.getName()});
+//	}
+	
+	public void insertCircle(Circle circle)
+	{
+		String query="insert into circle (id, name) values (:id, :name)";
+		SqlParameterSource namedParameters = new MapSqlParameterSource("id",circle.getCircleId()).addValue("name",circle.getName());
+		namedParameterJdbcTemplate.update(query, namedParameters);
+	}
+	
+	public void createTriangleTable()
+	{
+		String query="create table Triangle (ID INTEGER, NAME VARCHAR(50))";
+		jdbcTemplate.execute(query);
+	}
 	
 	public int getCircleCount() {
 		String sql = "select count(*) from circle";
@@ -88,6 +110,7 @@ public class JdbcDaoImpl {
 	@Autowired
 	public void setDataSource(DataSource dataSource) {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
+		this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 	}
 
 	public JdbcTemplate getJdbcTemplate() {

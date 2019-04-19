@@ -1,6 +1,7 @@
 package org.dpk.demo;
 
 import org.dpk.dao.JdbcDaoImpl;
+import org.dpk.model.Circle;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -21,5 +22,10 @@ public class JdbcDemo {
 		System.out.println(dao.getCircleById(2));
 		
 		System.out.println(dao.getAllCircle());
+		
+		dao.insertCircle(new Circle(4, "Fourth"));
+		System.out.println(dao.getAllCircle().size());
+		
+		//dao.createTriangleTable();
 	}
 }
