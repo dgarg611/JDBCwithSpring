@@ -6,7 +6,9 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
 	xmlns:context="http://www.springframework.org/schema/context">
 
-
+	
+	<context:component-scan base-package="org.dpk" />
+	<context:annotation-config />
 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="org.apache.derby.jdbc.ClientDriver" />
@@ -15,7 +17,9 @@
 		<property name="maxActive" value="2" />
 	</bean>
 
-	<context:component-scan base-package="org.dpk" />
-	<context:annotation-config />
+	<bean id="simpleJdbcDaoImpl" class="org.dpk.dao.SimpleJdbcDaoImpl" >
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
 
 </beans>
